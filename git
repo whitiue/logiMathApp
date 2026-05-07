@@ -1,0 +1,19 @@
+[33mcommit 2a07f1cfacc86e530bb6ba6fb75ad95745774696[m[33m ([m[1;36mHEAD[m[33m -> [m[1;32mmain[m[33m, [m[1;31morigin/main[m[33m)[m
+Author: angel <ayael.ag1209@gmail.com>
+Date:   Wed May 6 22:22:05 2026 -0600
+
+    Revert "[Changes in security and changes in public safety and order]Se agregaron nuevas cosas respecto a la seguridad para futuro estar en un servidor y no ser local y orden para una mejor vista"
+    
+    This reverts commit e382333b819e00233145923d7e661cef2286f6d2.
+
+[33mcommit e382333b819e00233145923d7e661cef2286f6d2[m
+Author: angel <ayael.ag1209@gmail.com>
+Date:   Wed May 6 22:15:42 2026 -0600
+
+    [Changes in security and changes in public safety and order]Se agregaron nuevas cosas respecto a la seguridad para futuro estar en un servidor y no ser local y orden para una mejor vista
+
+[33mcommit 88a1571419dbb04fb8fddd0737bfdaaa754df022[m
+Author: angel <ayael.ag1209@gmail.com>
+Date:   Wed May 6 20:52:32 2026 -0600
+
+    [First Commit] (Basic version of the program) Add basic things
