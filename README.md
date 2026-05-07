@@ -5,7 +5,8 @@
 **Arquitectura:**
 - **Backend:** FastAPI + PostgreSQL (REST API)
 - **Frontend:** Kivy (Python) → APK Android
-- **DevOps:** Docker + Docker Compose (desarrollo local), Render.com (producción)
+--lo hara angel esta parte, no toquen--
+- **DevOps:** Docker + Docker Compose (desarrollo local), Render.com (producción **FUTURO**)
 - **CI/CD:** GitHub Actions (próximamente), DevSecOps (SAST scanning)
 
 ---
@@ -65,7 +66,7 @@ python main.py
 ---
 
 ## 📁 Estructura del Proyecto
-
+**A FUTURO SE PLANEA SER ASi**
 ```
 LogiMath/
 ├── backend/
@@ -106,18 +107,6 @@ LogiMath/
 2. Instalar y reiniciar
 3. Verificar: `docker --version && docker-compose --version`
 
-**En macOS:**
-```bash
-brew install docker docker-compose
-# O usar Docker Desktop desde Mac App Store
-```
-
-**En Linux (Ubuntu/Debian):**
-```bash
-sudo apt update
-sudo apt install docker.io docker-compose
-sudo usermod -aG docker $USER  # Para no usar sudo cada vez
-```
 
 ### Verificación
 ```bash
@@ -132,7 +121,7 @@ docker-compose --version
 
 - **Git** para clonar el repo
 - **Python 3.9+** (si desarrollas sin Docker)
-- **Node.js** (opcional, si se agrega frontend web después)
+- **Node.js** 
 
 ---
 
@@ -208,14 +197,13 @@ docker-compose down -v
 
 ---
 
-## 💻 Desarrollo sin Docker
 
 ### Backend (FastAPI)
 
 ```bash
 cd backend
 
-# Crear entorno virtual (recomendado)
+# Crear entorno virtual 
 python -m venv venv
 source venv/bin/activate  # En Windows: venv\Scripts\activate
 
@@ -276,7 +264,8 @@ backend/app/routes/
 ### Ejemplos principales
 
 #### Autenticación
-
+**TODAVIA NO HAY XD**
+**gran parte de aca no existe o no funciona**
 ```bash
 # Registro
 curl -X POST http://localhost:8000/api/auth/register \
@@ -361,9 +350,10 @@ curl -X GET http://localhost:8000/api/results/user/5 \
 ✅ Catálogo de cursos por materia  
 ✅ Quizzes interactivos con retroalimentación inmediata  
 ✅ Seguimiento de progreso  
-✅ Leaderboard (opcional)  
+✅ Leaderboard 
 ✅ Historial de resultados  
 ✅ Roles (student, instructor, admin)  
+falta lo de tete/logi (mascota) todavia sin definir con disfraces y todo
 
 ---
 
@@ -378,7 +368,7 @@ curl -X GET http://localhost:8000/api/results/user/5 \
    git push origin main
    ```
 
-2. **Render detecta cambios**
+2. **Render detecta cambios** (Esta parte tovia es innecesaria)
    - Lee `render.yaml` automáticamente
    - Construye imágenes Docker
    - Crea/actualiza servicios
@@ -593,8 +583,4 @@ ssh -T git@github.com  # Debe mostrar tu username
 
 LogiMath © 2024 StrawBerryNode. Todos los derechos reservados.
 
----
-
-**¿Preguntas?** Abre un issue en el repo o contacta al equipo.
-
-Happy coding! 🚀
+--
