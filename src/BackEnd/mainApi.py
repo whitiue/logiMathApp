@@ -1,7 +1,7 @@
 from fastapi import FastAPI, Depends
 from fastapi.middleware.cors import CORSMiddleware
 from sqlalchemy.orm import Session
-from models import SessionLocal, User, Quiz, Question, UserScore
+from BackEnd.models import SessionLocal, User, Quiz, Question, UserScore
 from datetime import datetime
 from pydantic import BaseModel
 
