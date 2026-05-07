@@ -25,53 +25,6 @@ wheels/
 .installed.cfg
 *.egg
 
-# Caches y resultados de herramientas
-.pytest_cache/
-.mypy_cache/
-.pytype/
-htmlcov/
-coverage.xml
-.coverage
-.coverage.*
-.cache/
-nosetests.xml
-
-# Dependencias locales
-__pypackages__/
-pip-wheel-metadata/
-
-# Kivy y FastAPI
-.kivy/
-*.spec
-*.db
-*.sqlite3
-
-# Archivos de log y temporales
-*.log
-
-# Environment variables y secretos (⚠️ CRÍTICO)
-.env
-.env.local
-.env.*.local
-secrets/
-*.key
-*.pem
-
-# IDE
-.vscode/
-.idea/
-*.swp
-*.swo
-*~
-.DS_Store
-
-# Docker
-.dockerignore
-Dockerfile
-docker-compose*.yml
-*.pot
-*.mo
-
 # IDE
 .vscode/
 .idea/
