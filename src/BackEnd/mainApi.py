@@ -152,16 +152,9 @@ def get_user_scores(user_id: int, db: Session = Depends(get_db)):
 
 # ============ HEALTH CHECK ============
 
-@app.get("/")
+@app.api_route("/", methods=["GET", "HEAD"])
 def root():
-    """Endpoint de prueba"""
     return {"message": "LogiMath API running! 🚀"}
-
-@app.head("/)")
-def root_head():
-    """Endpoint de prueba para HEAD"""
-    return {"message": "LogiMath API running! "}
-
 
 
 if __name__ == "__main__":
