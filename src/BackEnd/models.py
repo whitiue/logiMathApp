@@ -1,11 +1,11 @@
+import os
 from sqlalchemy import create_engine, Column, Integer, String, Float, DateTime, Boolean
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import sessionmaker
 from datetime import datetime
 
 # Conexión a PostgreSQL en Docker
-DATABASE_URL = "postgresql://logmath_user:logmath_pass@localhost:5432/logmath_db"
-
+DATABASE_URL = os.getenv("DATABASE_URL")
 engine = create_engine(DATABASE_URL)
 SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
 
