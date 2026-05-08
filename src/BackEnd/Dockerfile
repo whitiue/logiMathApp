@@ -5,12 +5,12 @@ RUN useradd -m -u 1000 appuser
 
 WORKDIR /app
 
-# Copiar requirements e instalar dependencias
-COPY requeriments_backend.txt .
+# Copiar requirements desde src/BackEnd (porque el contexto es desde raíz)
+COPY src/BackEnd/requeriments_backend.txt .
 RUN pip install --no-cache-dir -r requeriments_backend.txt
 
 # Copiar código de aplicación
-COPY . .
+COPY src/BackEnd/ .
 
 # Cambiar propiedad a usuario no-root
 RUN chown -R appuser:appuser /app
