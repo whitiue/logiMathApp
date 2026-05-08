@@ -5,6 +5,8 @@
 **Arquitectura:**
 - **Backend:** FastAPI + PostgreSQL (REST API)
 - **Frontend:** Kivy (Python) → APK Android
+
+
 --lo hara angel esta parte, no toquen--
 - **DevOps:** Docker + Docker Compose (desarrollo local), Render.com (producción **FUTURO**)
 - **CI/CD:** GitHub Actions (próximamente), DevSecOps (SAST scanning)
