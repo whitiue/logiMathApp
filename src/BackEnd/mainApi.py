@@ -1,12 +1,14 @@
-from fastapi import FastAPI, Depends
-from fastapi.middleware.cors import CORSMiddleware
-from sqlalchemy import create_engine
-from models import Base, User, Quiz, Question
-from datetime import datetime
-from pydantic import BaseModel
-from dotenv import load_dotenv
 import os
+from datetime import datetime
 
+from dotenv import load_dotenv
+from fastapi import Depends, FastAPI
+from fastapi.middleware.cors import CORSMiddleware
+from pydantic import BaseModel
+from sqlalchemy import create_engine
+from sqlalchemy.orm import Session, sessionmaker
+
+from models import Base, Question, Quiz, User
 
 
 app = FastAPI()
