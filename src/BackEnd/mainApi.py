@@ -1,13 +1,22 @@
 from fastapi import FastAPI, Depends
 from fastapi.middleware.cors import CORSMiddleware
-from sqlalchemy.orm import Session
-from models import SessionLocal, User, Quiz, Question, UserScore
+from sqlalchemy import create_engine
+from models import Base, User, Quiz, Question
 from datetime import datetime
 from pydantic import BaseModel
+from dotenv import load_dotenv
+import os
+
+
 
 app = FastAPI()
 
-# Permitir que Kivy se conecte a la API
+load_dotenv()
+DATABASE_URL = os.getenv("DATABASE_URL")
+
+engine = create_engine(DATABASE_URL)
+Base.metadata.create_all(bind=engine)
+
 app.add_middleware(
     CORSMiddleware,
     allow_origins=["*"],
@@ -73,24 +82,6 @@ def create_user(name: str, email: str, db: Session = Depends(get_db)):
     return user
 
 
-# ============ QUIZZES ============
-
-@app.get("/quizzes", response_model=list[QuizResponse])
-def get_quizzes(db: Session = Depends(get_db)):
-    """Obtener todos los quizzes"""
-    quizzes = db.query(Quiz).all()
-    return quizzes
-
-
-@app.post("/quizzes", response_model=QuizResponse)
-def create_quiz(title: str, subject: str, difficulty: str, db: Session = Depends(get_db)):
-    """Crear un nuevo quiz"""
-    quiz = Quiz(title=title, subject=subject, difficulty=difficulty)
-    db.add(quiz)
-    db.commit()
-    db.refresh(quiz)
-    return quiz
-
 
 # ============ QUESTIONS ============
 
@@ -117,37 +108,6 @@ def create_question(
     db.refresh(question)
     return question
 
-
-# ============ SCORES ============
-
-@app.post("/users/{user_id}/quizzes/{quiz_id}/score", response_model=ScoreResponse)
-def save_score(user_id: int, quiz_id: int, score: float, db: Session = Depends(get_db)):
-    """Guardar el puntaje de un usuario en un quiz"""
-    user_score = UserScore(
-        user_id=user_id,
-        quiz_id=quiz_id,
-        score=score,
-        completed=True,
-        completed_at=datetime.utcnow(),
-    )
-    db.add(user_score)
-    db.commit()
-    db.refresh(user_score)
-    return user_score
-
-
-@app.get("/users/{user_id}/scores")
-def get_user_scores(user_id: int, db: Session = Depends(get_db)):
-    """Obtener todos los puntajes de un usuario"""
-    scores = db.query(UserScore).filter(UserScore.user_id == user_id).all()
-    return [
-        {
-            "quiz_id": s.quiz_id,
-            "score": s.score,
-            "completed_at": s.completed_at,
-        }
-        for s in scores
-    ]
 
 
 # ============ HEALTH CHECK ============
