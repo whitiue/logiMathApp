@@ -29,16 +29,14 @@ jobs:
       #se usa porq flet usa fluter     
       - name: Setup Flutter
         uses: subosito/flutter-action@v2
-          with:
-        flutter-version: 'stable'
-
+        with:
+          flutter-version: 'stable'
 
       - name: Build APK
         run: |
           cd src/FrontEnd
           flet build apk
 
-          # 🔥 CAMBIO: ruta nueva
           ls -lah build/apk/
 
       - name: Upload APK artifact
