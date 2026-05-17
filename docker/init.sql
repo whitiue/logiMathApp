@@ -1,0 +1,1 @@
+CREATE DATABASE logmath_user OWNER logmath_user;
