@@ -21,63 +21,55 @@ jobs:
         with: 
           python-version: '3.14.4'
  
-      # Dependencias del sistema
-      - name: System Dependences 
-        run: |
-          sudo apt-get update
-          sudo apt-get install -y \
-          build-essential \
-          git \
-          openjdk-11-jdk \
-          android-sdk \
-          wget \
-          unzip \
-          libffi-dev \
-          libssl-dev
- 
-      # Herramientas para python
       - name: Install Python tools
         run: |
           pip install --upgrade pip
-          pip install buildozer cython
- 
-      # Configura el android para que buildozer pueda encontrarlo
-      - name: Set up Android SDK
-        run: |
-          echo "ANDROID_SDK_ROOT=/usr/lib/android-sdk" >> $GITHUB_ENV
-          echo "PATH=$PATH:/usr/lib/android-sdk/tools:/usr/lib/android-sdk/platform-tools" >> $GITHUB_ENV
-          yes | /usr/lib/android-sdk/tools/bin/sdkmanager --licenses || true
- 
+          pip install flet
+
+      #se usa porq flet usa fluter     
+      - name: Setup Flutter
+        uses: subosito/flutter-action@v2
+        with:
+        flutter-version: 'stable'
+
+
       - name: Build APK
         run: |
           cd src/FrontEnd
-          buildozer android release
-          ls -lah bin/
-      
+          flet build apk
+
+          # 🔥 CAMBIO: ruta nueva
+          ls -lah build/apk/
+
       - name: Upload APK artifact
         uses: actions/upload-artifact@v4
         with:
           name: logimath-apk
-          path: src/FrontEnd/bin/*.apk
-      
+
+          path: src/FrontEnd/build/apk/*.apk
+
       - name: Create Release
         uses: softprops/action-gh-release@v2
         with:
-          files: src/FrontEnd/bin/*.apk
+
+          files: src/FrontEnd/build/apk/*.apk
+
           tag_name: v${{ github.run_number }}
           name: "LogiMath Build #${{ github.run_number }}"
+
           body: |
             🚀 APK compilado automáticamente
-            
+
             📱 Cómo instalar:
             1. Descarga el APK abajo
             2. Transfiere a tu Android
             3. Abre el APK → Install
-            
+
             Backend: https://logimathapp.onrender.com
+
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      
+
       - name: Build Summary
         run: |
           echo "✅ APK compilado: v${{ github.run_number }}"
