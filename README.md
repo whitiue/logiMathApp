@@ -1,15 +1,77 @@
 # LogiMath 📚
 
-**Plataforma educativa integral** para estudiantes: Logic, Matemáticas, Química, Física y Programación en una sola app.
+Plataforma educativa para estudiantes que integra contenidos de lógica, matemáticas, física, química y programación.
 
-**Arquitectura:**
-- **Backend:** FastAPI + PostgreSQL (REST API)
-- **Frontend:** Kivy (Python) → APK Android
+Arquitectura principal
+- Backend: FastAPI (en `src/BackEnd`)
+- Frontend: Flet (app Python en `src/FrontEnd`)
+- Orquestación: `docker-compose.yml` (raíz)
 
+Resumen rápido
+- Código fuente: `src/BackEnd` y `src/FrontEnd`
+- Dockerfiles dentro de cada subcarpeta (`src/BackEnd/Dockerfile`, `src/FrontEnd/Dockerfile`)
+- Dependencias: `requirements_backend.txt` y `requirements_frontend.txt`
 
---lo hara angel esta parte, no toquen--
-- **DevOps:** Docker + Docker Compose (desarrollo local), Render.com (producción **FUTURO**)
-- **CI/CD:** GitHub Actions (próximamente), DevSecOps (SAST scanning)
+Contenido del repositorio
+- `docker-compose.yml`: configura backend, frontend y la base de datos (Postgres)
+- `render.yaml`: plantilla de despliegue (opcional)
+- `src/BackEnd/`:
+  - `mainApi.py` (punto de entrada del API)
+  - `models.py` (modelos / ORM)
+  - `requirements_backend.txt`
+  - `Dockerfile`
+- `src/FrontEnd/`:
+  - `mainApp.py` (aplicación Kivy)
+  - `services/` (cliente API y servicios)
+  - `views/` (pantallas: home, login, register)
+  - `requirements_frontend.txt`
+  - `Dockerfile`
+
+Inicio rápido (con Docker, recomendado)
+```bash
+git clone <tu-repo> LogiMath
+cd LogiMath
+docker-compose build
+docker-compose up --build
+```
+
+URLs locales útiles
+- Backend API: http://localhost:8000 (si el `docker-compose.yml` lo expone así)
+- Base de datos: localhost:5432 (servicio Postgres en Docker)
+
+Desarrollo sin Docker (rápido)
+
+Backend
+```bash
+cd src/BackEnd
+python -m venv venv
+# Windows: venv\Scripts\activate
+pip install -r requirements_backend.txt
+# Ejecutar servidor (asume que en mainApi.py existe la app FastAPI llamada "app")
+uvicorn mainApi:app --reload --host 0.0.0.0 --port 8000
+```
+
+Frontend (Flet)
+```bash
+cd src/FrontEnd
+python -m venv venv
+# Windows: venv\Scripts\activate
+pip install -r requirements_frontend.txt
+python mainApp.py
+```
+
+Notas y recomendaciones
+- Asegúrate de crear un archivo `.env` o variables de entorno necesarias para la conexión a la base de datos cuando trabajes sin Docker.
+- Si usas Docker Compose, las variables internas en `docker-compose.yml` suelen apuntar al servicio `db`; no cambies la URL interna del contenedor.
+- Para compilar APKs de Kivy en Android, configura `buildozer` en una máquina Linux o usa servicios CI que soporten buildozer.
+
+Próximos pasos sugeridos
+- Añadir un archivo `.env.example` con las variables mínimas necesarias.
+- Documentar endpoints principales del backend (archivo con ejemplos CURL o Postman collection).
+- Añadir instrucciones para ejecutar tests (si existen) y un workflow de GitHub Actions.
+
+Licencia y créditos
+LogiMath © 2024 StrawBerryNode. Mantén las credenciales y claves fuera del repo.
 
 ---
 
@@ -34,7 +96,7 @@
 
 ```bash
 # Clonar el repo
-git clone https://github.com/StrawBerryNode/LogiMath.git
+git clone https://github.com/whitiue/LogiMath.git
 cd LogiMath
 
 # Construir las imágenes
@@ -44,10 +106,6 @@ docker-compose build
 docker-compose up --build
 ```
 
-**URLs locales:**
-- Backend: `http://localhost:8000`
-- Docs interactivos: `http://localhost:8000/docs`
-- Frontend Kivy: Se ejecuta en contenedor, acceso via `localhost:5000` si está configurado
 
 **Base de datos:** PostgreSQL corre automáticamente en `localhost:5432`
 
@@ -138,7 +196,7 @@ cd LogiMath
 # Crear archivo .env en raíz (NO SE COMMITEA)
 cat > .env << EOF
 # Backend
-DATABASE_URL=postgresql://logimath_user:logimath_pass@db:5432/logimath_db
+DATABASE_URL=postgresql://logimath_user:logimath_pass@db:5432/logmath_db
 SECRET_KEY=tu-clave-secreta-aqui-cambiar-en-produccion
 DEBUG=True
 ENVIRONMENT=development
@@ -254,14 +312,12 @@ python main.py
 
 ### Estructura de rutas
 
-```
+``` 
+TODAVIA NO EXISTE
 backend/app/routes/
 ├── auth.py          # POST /api/auth/login, /api/auth/register
 ├── users.py         # GET/PUT /api/users/{id}
-├── courses.py       # GET /api/courses, POST /api/courses/{id}/enroll
-├── quizzes.py       # GET /api/quizzes, POST /api/quizzes/{id}/submit
-└── results.py       # GET /api/results, GET /api/results/{user_id}
-```
+
 
 ### Ejemplos principales
 
@@ -300,42 +356,6 @@ curl -X POST http://localhost:8000/api/courses/1/enroll \
   -H "Authorization: Bearer {token}"
 ```
 
-#### Quizzes
-
-```bash
-# Obtener quiz
-curl -X GET http://localhost:8000/api/quizzes/1 \
-  -H "Authorization: Bearer {token}"
-
-# Enviar respuestas
-curl -X POST http://localhost:8000/api/quizzes/1/submit \
-  -H "Authorization: Bearer {token}" \
-  -H "Content-Type: application/json" \
-  -d '{
-    "answers": [
-      {"question_id": 1, "answer": "A"},
-      {"question_id": 2, "answer": "C"}
-    ]
-  }'
-```
-
-#### Resultados
-
-```bash
-# Mis resultados
-curl -X GET http://localhost:8000/api/results \
-  -H "Authorization: Bearer {token}"
-
-# Resultados de usuario específico (admin)
-curl -X GET http://localhost:8000/api/results/user/5 \
-  -H "Authorization: Bearer {token}"
-```
-
-**Para explorar interactivamente:** Abre `http://localhost:8000/docs` en el navegador
-
----
-
-## ✨ Features Principales
 
 ### Materias soportadas
 
@@ -370,7 +390,7 @@ falta lo de tete/logi (mascota) todavia sin definir con disfraces y todo
    git push origin main
    ```
 
-2. **Render detecta cambios** (Esta parte tovia es innecesaria)
+2. **Render detecta cambios** (Esta parte todavia no es automatico, si hacen cambios avisenme)
    - Lee `render.yaml` automáticamente
    - Construye imágenes Docker
    - Crea/actualiza servicios
@@ -574,15 +594,15 @@ ssh -T git@github.com  # Debe mostrar tu username
 ## 📚 Recursos Adicionales
 
 - **FastAPI Docs:** https://fastapi.tiangolo.com
-- **Kivy Tutorial:** https://kivy.org/doc/stable/gettingstarted/intro.html
 - **PostgreSQL + SQLAlchemy:** https://docs.sqlalchemy.org/en/20/orm/
 - **Docker Compose:** https://docs.docker.com/compose/
 - **Render Docs:** https://render.com/docs
+- **Flet Docs** https://flet.dev/docs/
 
 ---
 
 ## 📝 Licencia
 
-LogiMath © 2024 StrawBerryNode. Todos los derechos reservados.
+LogiMath © 2024 StrawBerryNode. Todos los derechos reservados. (xd)
 
 --

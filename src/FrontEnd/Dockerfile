@@ -6,11 +6,11 @@ RUN useradd -m -u 1000 appuser
 WORKDIR /app
 
 # Copiar requirements e instalar dependencias
-COPY requeriments_frontend.txt .
-RUN pip install --no-cache-dir -r requeriments_frontend.txt
+COPY src/FrontEnd/ .
+RUN pip install --no-cache-dir -r requirements_frontend.txt
 
 # Copiar código de aplicación
-COPY . .
+COPY src/FrontEnd/ .
 
 # Cambiar propiedad a usuario no-root
 RUN chown -R appuser:appuser /app
@@ -18,5 +18,4 @@ RUN chown -R appuser:appuser /app
 # Cambiar a usuario no-root
 USER appuser
 
-# Para Kivy, si necesitas display, considera usar X11 forwarding o VNC
 CMD ["python", "mainApp.py"] 

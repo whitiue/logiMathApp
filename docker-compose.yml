@@ -27,8 +27,10 @@ services:
           memory: 256M
     restart: unless-stopped
 
-  backend:
-    build: ./src/BackEnd
+  backend: 
+    build:
+      context: ./
+      dockerfile: ./src/BackEnd/Dockerfile
     container_name: logmath_backend
     ports:
       - "8000:8000"
@@ -57,7 +59,9 @@ services:
     restart: unless-stopped
 
   frontend:
-    build: ./src/FrontEnd
+    build:
+      context: ./
+      dockerfile: ./src/FrontEnd/Dockerfile
     container_name: logmath_frontend
     depends_on:
       backend:
