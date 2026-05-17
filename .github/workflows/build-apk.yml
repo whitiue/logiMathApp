@@ -27,7 +27,7 @@ jobs:
       - name: Install Python tools
         run: |
           pip install --upgrade pip
-          pip install flet
+          pip install -r src/FrontEnd/requirements.txt
 
       #se usa porq flet usa fluter     
       - name: Setup Flutter

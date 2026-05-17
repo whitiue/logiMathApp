@@ -10,7 +10,7 @@ Arquitectura principal
 Resumen rápido
 - Código fuente: `src/BackEnd` y `src/FrontEnd`
 - Dockerfiles dentro de cada subcarpeta (`src/BackEnd/Dockerfile`, `src/FrontEnd/Dockerfile`)
-- Dependencias: `requirements_backend.txt` y `requirements_frontend.txt`
+- Dependencias: `src/BackEnd/requirements.txt` y `src/FrontEnd/requirements.txt`
 
 Contenido del repositorio
 - `docker-compose.yml`: configura backend, frontend y la base de datos (Postgres)
@@ -18,13 +18,13 @@ Contenido del repositorio
 - `src/BackEnd/`:
   - `mainApi.py` (punto de entrada del API)
   - `models.py` (modelos / ORM)
-  - `requirements_backend.txt`
+  - `requirements.txt`
   - `Dockerfile`
 - `src/FrontEnd/`:
   - `mainApp.py` (aplicación Kivy)
   - `services/` (cliente API y servicios)
   - `views/` (pantallas: home, login, register)
-  - `requirements_frontend.txt`
+  - `requirements.txt`
   - `Dockerfile`
 
 Inicio rápido (con Docker, recomendado)
@@ -46,7 +46,7 @@ Backend
 cd src/BackEnd
 python -m venv venv
 # Windows: venv\Scripts\activate
-pip install -r requirements_backend.txt
+pip install -r requirements.txt
 # Ejecutar servidor (asume que en mainApi.py existe la app FastAPI llamada "app")
 uvicorn mainApi:app --reload --host 0.0.0.0 --port 8000
 ```
@@ -56,7 +56,7 @@ Frontend (Flet)
 cd src/FrontEnd
 python -m venv venv
 # Windows: venv\Scripts\activate
-pip install -r requirements_frontend.txt
+pip install -r requirements.txt
 python mainApp.py
 ```
 

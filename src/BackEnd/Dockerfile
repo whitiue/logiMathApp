@@ -5,7 +5,7 @@ RUN useradd -m -u 1000 appuser
 WORKDIR /app
 
 COPY src/BackEnd .
-RUN pip install --no-cache-dir -r requirements_backend.txt
+RUN pip install --no-cache-dir -r requirements.txt
 
 COPY src/BackEnd/ .
 
