@@ -1,21 +1,21 @@
 services:
   - type: web
-    name: logimath-backend
+    name: logmath-backend
     runtime: docker
     dockerfilePath: ./src/BackEnd/Dockerfile
     dockerContext: ./
-    region: oregon
+    region: ohio
     
     envVars:
       - key: DATABASE_URL
         fromDatabase:
-          name: logimath_db
+          name: logmath_db
           property: connectionString
       - key: ENVIRONMENT
         value: production
 
 databases:
-  - name: logimath_db
-    databaseName: logimath_db
-    user: logimath_user
-    region: oregon
+  - name: logmath_db
+    databaseName: logmath_db
+    user: logmath_user
+    region: ohio
