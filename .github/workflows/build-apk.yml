@@ -35,8 +35,7 @@ jobs:
       - name: Build APK
         run: |
           cd src/FrontEnd
-          flet build apk
-
+          flet build apk --module-name mainApp
           ls -lah build/apk/
 
       - name: Upload APK artifact
