@@ -45,10 +45,10 @@ services:
     networks:
       - logmath_network
     healthcheck:
-      test: ["CMD", "curl", "-f", "http://localhost:8000/docs"]
-      interval: 30s
-      timeout: 10s
-      retries: 3
+     test: ["CMD-SHELL", "python -c 'import urllib.request; urllib.request.urlopen(\"http://localhost:8000/\").read()'"]
+     interval: 30s
+     timeout: 10s
+     retries: 3
     deploy:
       resources:
         limits:
