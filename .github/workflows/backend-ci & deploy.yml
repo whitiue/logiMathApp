@@ -55,7 +55,7 @@ jobs:
 
       - name: Deploy to Render
         env:
-          WEBHOOK_URL: ${{ secrets.RENDER_DEPLOY_HOOK_URL }}
+          WEBHOOK_URL: ${{ secrets.RENDER_DEPLOY_HOOK }}
         run: |
           curl -X POST "$WEBHOOK_URL"
 
