@@ -1,12 +1,10 @@
-import os
-
 from dotenv import load_dotenv
 from fastapi import Depends, FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
 from sqlalchemy.orm import Session
 
-from models import SessionLocal, Base, Question, User, Quiz
+from models import SessionLocal, Question, User, Quiz
 
 app = FastAPI()
 
@@ -160,3 +158,4 @@ def root():
 if __name__ == "__main__":
     import uvicorn
     uvicorn.run(app, host="0.0.0.0", port=8000)
+    
