@@ -6,7 +6,7 @@ from views.login_view import login_view
 from views.register_view import register_view
 
 class LogiMathApp:
-
+    # ================== APP PRINCIPAL ================== #
     def __init__(self):
         self.current_user: Optional[dict] = None
         self.current_user_id: Optional[int] = None
