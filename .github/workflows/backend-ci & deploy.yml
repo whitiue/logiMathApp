@@ -36,7 +36,7 @@ jobs:
           if [ -n "$(find src/BackEnd/tests -name 'test_*.py' -o -name '*_test.py')" ]; then
             pytest src/BackEnd/tests
           else
-            echo "⚠️ No tests found, skipping..."
+            echo "⚠️ No tests found, skip"
           fi
 
       - name: Run flake8 (sintaxis)
@@ -55,7 +55,7 @@ jobs:
 
       - name: Deploy to Render
         run: |
-          curl -X POST https://api.render.com/deploy/${{ secrets.RENDER_SERVICE_ID }}?key=${{ secrets.RENDER_DEPLOY_KEY }}
+          curl -X POST ${{ secrets.RENDER_DEPLOY_HOOK_URL }}
 
       - name: Deployment Summary
         run: |
