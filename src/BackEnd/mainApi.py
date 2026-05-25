@@ -28,7 +28,7 @@ def get_db():
         db.close()
 
 
-# ============ MODELOS PYDANTIC ============
+# ============ MODELOS PYDANTIC ============ #
 
 class UserResponse(BaseModel):
     id: int
