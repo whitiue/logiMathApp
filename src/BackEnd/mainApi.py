@@ -19,7 +19,7 @@ app.add_middleware(
 )
 
 
-# Dependencia para obtener la BD
+# Dependencia para obtener la BD #
 def get_db():
     db = SessionLocal()
     try:
