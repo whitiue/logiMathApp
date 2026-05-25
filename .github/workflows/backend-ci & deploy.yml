@@ -1,0 +1,57 @@
+name: backend ci and deploy
+
+on:
+  push:
+    branches: [ main ]
+    paths:
+      - 'src/BackEnd/**'
+  pull_request:
+    branches: [ main ]
+    paths:
+      - 'src/BackEnd/**'
+
+permissions:
+  contents: write
+
+jobs:
+  # Backend CI
+  ci:
+    runs-on: ubuntu-latest
+    steps:
+     #Descargar y clonar el repo
+      - name: Checkout code
+        uses: actions/checkout@v4.1.0
+
+
+     #Configurar python    
+      - name: Set-up python  
+        uses: actions/setup-python@v5
+        with: 
+          python-version: '3.11'
+ 
+      - name: Install Python tools
+        run: |
+          pip install --upgrade pip
+          pip install -r src/BackEnd/requirements-dev.txt
+
+      - name: Run Backend Tests
+        run: pytest src/BackEnd/tests 
+      - name: Run flake8 (sintaxis)
+        run: flake8 src/BackEnd
+      - name: Run bandit (seguridad)
+        run: bandit -r src/BackEnd 
+  deploy:
+    needs: ci
+    if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4.1.0
+
+      - name: Deploy to Render
+        run: |
+          curl -X POST https://api.render.com/deploy/${{ secrets.RENDER_SERVICE_ID }}?key=${{ secrets.RENDER_DEPLOY_KEY }}
+
+      - name: Deployment Summary
+        run: |
+          echo "Deploy iniciado en Render"

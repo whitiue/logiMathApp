@@ -1,15 +1,45 @@
-name: build-apk
+name: frontend-ci
+
 on:
   push:
     branches: [ main ]
+    paths:
+      - 'src/FrontEnd/**'
   pull_request:
     branches: [ main ]
+    paths:
+      - 'src/FrontEnd/**'
 
 permissions:
   contents: write
+
+jobs:  
+    #Frontend CI
+  ci:
+    runs-on: ubuntu-latest
+    steps:
+     #Descargar y clonar el repo
+    - name: Checkout code
+      uses: actions/checkout@v4.1.0
+      # Configurar python    
+    - name: Set-up python  
+      uses: actions/setup-python@v5
+      with: 
+          python-version: '3.11'
  
-jobs:
+    - name: Install Python tools
+      run: |
+          pip install --upgrade pip
+          pip install -r src/FrontEnd/requirements.txt
+          pip install pylint bandit
+
+    - name: Run pylint (sintaxis)
+      run: pylint src/FrontEnd --disable=fixme,missing-docstring
+
+    - name: Run bandit
+      run: bandit -r src/FrontEnd
   build:
+    needs: ci
     runs-on: ubuntu-latest
     steps:
  
@@ -73,4 +103,5 @@ jobs:
       - name: Build Summary
         run: |
           echo "✅ APK compilado: v${{ github.run_number }}"
-          echo "🔗 https://github.com/${{ github.repository }}/releases"
+          echo "🔗 https://github.com/${{ github.repository }}/releases"   
+  
