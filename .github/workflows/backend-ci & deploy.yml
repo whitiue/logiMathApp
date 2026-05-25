@@ -18,12 +18,9 @@ jobs:
   ci:
     runs-on: ubuntu-latest
     steps:
-     #Descargar y clonar el repo
       - name: Checkout code
         uses: actions/checkout@v4.1.0
 
-
-     #Configurar python    
       - name: Set-up python  
         uses: actions/setup-python@v5
         with: 
@@ -35,11 +32,19 @@ jobs:
           pip install -r src/BackEnd/requirements-dev.txt
 
       - name: Run Backend Tests
-        run: pytest src/BackEnd/tests 
+        run: |
+          if [ -n "$(find src/BackEnd/tests -name 'test_*.py' -o -name '*_test.py')" ]; then
+            pytest src/BackEnd/tests
+          else
+            echo "⚠️ No tests found, skipping..."
+          fi
+
       - name: Run flake8 (sintaxis)
         run: flake8 src/BackEnd
+
       - name: Run bandit (seguridad)
-        run: bandit -r src/BackEnd 
+        run: bandit -r src/BackEnd
+
   deploy:
     needs: ci
     if: github.event_name == 'push' && github.ref == 'refs/heads/main'
@@ -55,3 +60,4 @@ jobs:
       - name: Deployment Summary
         run: |
           echo "Deploy iniciado en Render"
+  
