@@ -51,8 +51,8 @@ class Quiz(Base):
 
     id = Column(Integer, primary_key=True, index=True)
     title = Column(String, index=True)
-    subject = Column(String)  # Math, Chemistry, Physics, Logic, Programming
-    difficulty = Column(String)  # Easy, Medium, Hard
+    subject = Column(String)
+    difficulty = Column(String)
     created_at = Column(DateTime, default=datetime.utcnow)
 
 
