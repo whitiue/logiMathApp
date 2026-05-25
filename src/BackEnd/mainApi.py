@@ -56,7 +56,7 @@ class ScoreResponse(BaseModel):
     score: float
 
 
-# ============ USUARIOS ============
+# ============ USUARIOS ============ #
 
 @app.get("/users", response_model=list[UserResponse])
 def get_users(db: Session = Depends(get_db)):
