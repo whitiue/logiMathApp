@@ -79,7 +79,7 @@ def create_user(
     return user
 
 
-# ============ QUIZZES ============
+# ============ QUIZZES ============ #
 
 @app.get("/quizzes", response_model=list[QuizResponse])
 def get_quizzes(db: Session = Depends(get_db)):
