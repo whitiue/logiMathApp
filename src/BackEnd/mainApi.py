@@ -1,15 +1,10 @@
 import os
-from datetime import datetime
 
 from dotenv import load_dotenv
 from fastapi import Depends, FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
-from sqlalchemy import create_engine
-from sqlalchemy.orm import Session, sessionmaker
-
 from models import Base, Question, Quiz, User
-
 
 app = FastAPI()
 
@@ -35,8 +30,6 @@ def get_db():
         yield db
     finally:
         db.close()
-
-
 # ============ MODELOS PYDANTIC ============
 
 class UserResponse(BaseModel):
@@ -109,9 +102,6 @@ def create_question(
     db.commit()
     db.refresh(question)
     return question
-
-
-
 # ============ HEALTH CHECK ============
 
 @app.api_route("/", methods=["GET", "HEAD"])
